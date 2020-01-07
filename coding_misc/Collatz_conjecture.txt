@@ -1,0 +1,29 @@
+﻿# Collatz conjecture
+# 3 > 10 > 5 > 16 > 8 > 4 > 2 > 1 
+
+
+# -------------------------------------
+def make_step(n):
+    if n % 2 :
+        n = 3*n + 1
+    else :
+        n = round(n / 2)
+    return n
+
+
+# -------------------------------------
+def max_cc_length(k):
+    max_len = 1
+    lengths = {1: 1} # Base case.
+    for i in range(2, k + 1): 
+        curr_path = []
+        curr_len = 0
+        while i not in lengths:
+            curr_path.append(i)
+            curr_len += 1
+            i = make_step(i)
+        curr_len += lengths[i]
+        for offset, j in enumerate(curr_path):
+            lengths[j] = curr_len - offset
+        max_len = max(max_len, curr_len)
+    return max_len

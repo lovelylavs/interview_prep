@@ -1,0 +1,73 @@
+﻿"""
+# largest area of a rectangle in histogram
+"""
+
+
+# --------------------------------------------------------------
+def calc_max_area(heights):
+    max_area = 0
+    if len(heights) == 0:
+        return max_area
+
+
+    # Store the position of bars with non-decreasing height
+    stack = [-1] 
+
+
+    # Append a pseudo (negative) bar at the end so that, after
+    # the 'while' loop ends, only this bar will be left
+    # which will allow to iteratively go down
+    heights.append(-1)
+
+
+    ii = 0
+    # In this loop, we are using the stack 
+    # to find out the largest zone for each bar,
+    # in which it is the shortest one.
+    print(heights)
+    while ii < len(heights):
+        hh = heights[ii]
+        if hh >= heights[stack[-1]]:
+            stack.append(ii)
+            ii += 1
+            print("appended index=%d for height %d" % (ii, hh))
+        else:
+            preBasin = stack.pop()
+            # From stack[-1] position to index-1 position, the
+            # preBasin has the shortest bar.
+            tmp = heights[preBasin] * (ii-stack[-1]-1) 
+            max_area = max(max_area, tmp)
+            print("index, preBasin, tmp, max = ", ii, preBasin, tmp, max_area)
+
+
+    return max_area
+
+
+if __name__ == "__main__" :
+
+
+    heights = [2, 1, 2, 50,50,50,50]
+    # heights = [2, 1, 5, 6, 2, 3]
+    # heights = [5,4,3,2,1]
+    # heights = [1,2,1,2,1,2,1,2,1]
+    max_area = calc_max_area(heights)
+    print(max_area)
+
+
+##    [2, 1, 2, 50, 50, 50, 50, -1]
+##    appended index=1 for height 2
+##    index, preBasin, tmp, max =  1 0 2 2
+##    appended index=2 for height 1
+##    appended index=3 for height 2
+##    appended index=4 for height 50
+##    appended index=5 for height 50
+##    appended index=6 for height 50
+##    appended index=7 for height 50
+##    index, preBasin, tmp, max =  7 6 50 50
+##    index, preBasin, tmp, max =  7 5 100 100
+##    index, preBasin, tmp, max =  7 4 150 150
+##    index, preBasin, tmp, max =  7 3 200 200
+##    index, preBasin, tmp, max =  7 2 10 200
+##    index, preBasin, tmp, max =  7 1 7 200
+##    appended index=8 for height -1
+##    200
