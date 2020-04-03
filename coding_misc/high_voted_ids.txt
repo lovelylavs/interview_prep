@@ -1,6 +1,5 @@
 ﻿#! python3
 
-
 # --------------------------------------------------------------
 #    Given a list of tuples consisting of an id and a
 #    timestamp, as well as a given timestamp, return the id
@@ -11,11 +10,7 @@
 #    before the given tinestamp
 # --------------------------------------------------------------
 
-
 import sys, os, time
-
-
-
 
 # --------------------------------------------------------------
 def create_data():

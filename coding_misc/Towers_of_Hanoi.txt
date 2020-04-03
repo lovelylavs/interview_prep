@@ -5,10 +5,8 @@ from the bottom to the top of one rod ("S),
 i.e. the largest disk at the bottom and the smallest one 
 on top. The disks build a conical tower. 
 
-
 The aim of the game is to move the tower of disks 
 from one rod (S) to another rod (T). 
-
 
 The following rules have to be obeyed:
 1. Only one disk may be moved at a time.
@@ -19,7 +17,6 @@ can be moved in a move.
   - or if the top disk of this rod is larger than
     the disk that is being moved.
 
-
 Recursive approach in 3 steps:
   1. Move a tower of n - 1 discs Dn-1 ... D1 from S to A.
      Disk Dn is left alone on peg S
@@ -28,36 +25,27 @@ Recursive approach in 3 steps:
      i.e. this tower will be put on top of Disk Dn
 
 
-
-
 # --------------------------------------------------------------
 # python solution
 # --------------------------------------------------------------
 def hanoi(n, source, helper, target):
 
-
     if n > 0:
-
 
         # move tower of size n - 1 from source to helper:
         hanoi(n - 1, source, target, helper)
-
 
         # move disk from source peg to target peg
         if source:
             target.append(source.pop())
 
-
         # move tower of size n-1 from helper to target
         hanoi(n - 1, helper, source, target)
-
 
 source = [4,3,2,1]
 target = []
 helper = []
 hanoi(len(source),source,helper,target)
-
-
 print source, helper, target
 
 

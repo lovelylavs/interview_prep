@@ -12,13 +12,10 @@ You’re on a gameshow where you’re attempting to guess
 _ _ _ with the correct letter filled in if there’s a
 match. For instance:
 
-
 Word: tires
 Guess: trade
 
-
 Output: t _ _ _ _
-
 
 You want to get to the correct word in as few guesses
 as possible in as little time as possible. You’re
@@ -29,7 +26,6 @@ calculations as you’d like before your first guess
 without concern for time). Write an algorithm that
 will arrive at the answer in as few guesses and as
 little time as possible after the first guess.
-
 
 3.
 Implement the set and get methods of a hash table

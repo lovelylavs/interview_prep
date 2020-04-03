@@ -7,8 +7,10 @@ Two types of interviews:
 In both cases:
   - project excitement about the company and about the topics.
 Excitement, kindness, good karma mean more than technicalities.
-  - Consider it as not an exam, but rather as a work situation where you and your interviewer are solving real problem together
-  - you may not know the answer - but you are evaluated how you are communicating your thoughts and collaborating.
+  - Consider it as not an exam, but rather as a work situation 
+    where you and your interviewer are solving real problem together
+  - you may not know the answer - but you are evaluated how 
+    you are communicating your thoughts and collaborating.
   so:
   - when given a problem - listen, repeat it 
     and ask questions to make sure you understand it
@@ -34,8 +36,8 @@ There are many sites with questions and answers, books, youtube videos, etc.
 =======================================
 array, list, tuple, sequence, index, slice
 =======================================
-stack (FILO = First In Last Out)            
-queue (FIFO = First In First Out)   
+stack (FILO = First In Last Out)
+queue (FIFO = First In First Out)
 priority queue
     (ticket, priority)
   [(4,5),(3,5),(2,5)(1,5)]
@@ -54,17 +56,27 @@ Example of hashing function:
 =======================================
 Bloom filter
   Imagine that we have a huge lookup table (~millions of words)
-  And we need to test if a word is in this table (positive) or not (negative).
-  Normally for this we may have a huge hash on disk, which will result in many disk reads.
-  Bloom filter is addressing this problem by rejecting most of negatives while allowing very few false-positives.
-  The negatives are definitely negatives, but positives are "maybe" positives.
-  Bloom filter is a very compact bitmap.
-  Each key is presented as pattern of positions calculated using several hash functions.
-  Different keys produce different patterns.
-  Union of all patterns constitutes a filter.
-  If a word's pattern has even a single bit missing - it is definitely a negative.
-  If a pattern passes the filter - it may be a positive or false-positive.
-  If map is big enough, the patterns will be sparse - and probability of false-positives very low.
+  and we testing if a word is in this table or not. 
+  We may use a huge hash on disk, causing big disk I/O.
+
+  Bloom filter uses a small compact bitmap instead of big hash.
+  This allows to reject most negatives - while allowing very few false-positives.
+  The negatives are definitely negatives, but positives 
+  are "maybe" positives.
+
+  An empty Bloom filter is a bit array of m bits, all set to 0.
+  There must also be k different hash functions defined, 
+  each of which maps an element to one of m bits (sets it to 1).
+  So if we use k hash functions - we can get up to "k" bits set.
+  Example: m=30, k=10
+  To query for an element (test whether it is in the set), 
+  feed it to each of the k hash functions to get k array positions. 
+  If any of the bits at these positions is 0, the element is not in the set.
+  If all are 1, then it may be positive - or false-positive.
+  resulting in a false positive. 
+
+  If map is big enough, the patterns will be sparse, 
+  and probability of false-positives very low.
   - https://hur.st/bloomfilter
 =======================================
 BST (Binary Search Tree)
@@ -77,7 +89,7 @@ Binary Heaps (MaxHeap and MinHeap)
   representing heap in an array N -> (2N, 2N+1)
   heapify, 
   adding element (bottom), removing element (top)
-  using heap to make priority queue  
+  using heap to make priority queue
   Time complexity of building a heap is O(N)
   But time complexity to remove top element is O(n log n)
   Thus heap sort has complexity of O(n log n). 
@@ -97,7 +109,6 @@ sorting:
 === selection sort O(n^2)
   divide list into two portions: left sorted, right not sorted yet
   on each step: select min value from right - append to left
-  
 === insert sort   O(n^2)
   (take one element, insert it in its place on the left, repeat)
 === merge sort  O(n log n)

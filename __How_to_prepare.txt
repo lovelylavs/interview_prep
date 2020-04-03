@@ -40,9 +40,6 @@ webistes for sample problems:
     Hired In Tech  - https://www.hiredintech.com/
     Project Euler - https://projecteuler.net/
 ==========================================
-Get this Chrome browser add-on: Code Pretty - Google Docs add-on - Chrome
-It helps when writing code in google docs
-==========================================
 Specifically for Golang:
     Several interviewcake solutions in "Golang":
      - https://github.com/leighmcculloch/interviewcake
