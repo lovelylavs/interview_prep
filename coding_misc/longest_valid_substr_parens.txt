@@ -1,6 +1,6 @@
-﻿# https://www.geeksforgeeks.org/length-of-the-longest-valid-substring/
-# string of parentheses
-
+﻿# given a string which composed from characters "(" and ")".
+# Find the lengthof the longest valid substring.
+# https://www.geeksforgeeks.org/length-of-the-longest-valid-substring/
 
 # ---------------------------------------------
 def max_valid_len_stack(ss):
