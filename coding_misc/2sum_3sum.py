@@ -1,29 +1,26 @@
-﻿# --------------------------------------------------------------
+﻿#! python
+
+"""
 # two_sum problem
-# --------------------------------------------------------------
-
-
-Given an array of integers, find two numbers such that they
-add up to a specific target number.
-
-
-The function twoSum() should return indices of the two numbers
-such that they add up to the target,
-where index1 must be less than index2.
-Please note that your returned answers (both index1 and index2)
-are not zero-based.
-
-
-You may assume that each input would have exactly one solution.
-
-
-Example:
-Input  : numbers={2, 7, 11, 15}, target=9
-Output : index1=1, index2=2
+# Given an array of integers, find two numbers such 
+# that they add up to a specific target number.
+#
+# The function twoSum() should return indices of the two numbers
+# such that they add up to the target,
+# where index1 must be less than index2.
+# Please note that your returned answers (both index1 and index2)
+# are not zero-based.
+#
+# You may assume that each input would have exactly one solution.
+#
+# Example:
+# Input  : numbers={2, 7, 11, 15}, target=9
+# Output : index1=1, index2=2
+"""
 
 
 # ---------------------------
-def twosum(self, nums, target):
+def twosum(nums, target):
     lookup = {}
     for cnt, num in enumerate(nums):
         if target - num in lookup:
@@ -40,13 +37,13 @@ def twosum(nums=(6, 7, 11, 15, 3, 6, 5, 3), target=6):
 
 
 # ---------------------------
-def two_sum(arr,targ):
+def two_sum(nums, target):
     look_for = {}
-    for n,x in enumerate(arr):
+    for n,x in enumerate(nums):
         try:
             return look_for[x] + 1, n + 1
         except KeyError:
-            look_for.setdefault(targ - x,n)
+            look_for.setdefault(target - x, n)
 
 
 # ---------------------------
@@ -63,17 +60,14 @@ def twosum_indices_linear(nums, target):
             return num1_index, num2_index
 
 
-
-
 # --------------------------------------------------------------
 # three_sum() problem
+#
+# Given an array of n integers, find all unique triplets which sum to zero.
+# Return a list of lists, if there are more than one triplet.
+# For example, given input as [-1, 0, 1, 2, -1, -4],
+# the solution will be: [ [-1, 0, 1], [-1, -1, 2] ]
 # --------------------------------------------------------------
-
-
-Given an array of n integers, find all unique triplets which sum to zero.
-Return a list of lists, if there are more than one triplet.
-For example, given input as [-1, 0, 1, 2, -1, -4],
-the solution will be: [ [-1, 0, 1], [-1, -1, 2] ]
 
 
 # ---------------------------

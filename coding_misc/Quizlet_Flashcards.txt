@@ -1,7 +1,6 @@
-﻿https://quizlet.com/278908230/interview-prep-flash-cards/
-
-
-Brad's flashcards as of March 25, 2018
+﻿
+quizlet flashcards (March 25, 2018)
+ - https://quizlet.com/278908230/interview-prep-flash-cards/
 
 
 Largest square of 1s in matrix of size m*n
@@ -14,25 +13,31 @@ the min and add 1. Add this as current value in cache.
 
 Find overlap of two rectangles given BL and TR indices
 Principles: O(1), take min of top coordinates minus
-max of bottom coordinates. If either distance is lte
-zero, return false. Otherwise, return x*y
+max of bottom coordinates. If either distance is <= 0, 
+return false, else return x*y
 
 
 Implement a queue using two stacks
-Principles: operations take o(n). one stack is the
-"push" stack, the other the "pop" stack. If adding,
-pop off everything from the pop stack and push to
-"push stack". Then push new item to this stack. If
-popping, push everything to "pop" stack and pop/peek
-off the top.
+Operations take O(n). 
+One stack is the "push" stack, the other the "pop" stack.
+As you move elements one by one from one stack to another, they order reverses.
+Start with both stacks empty
+If adding, push to push stack.
+If popping, first move everything to the pop stack - then pop from it.
+If want to push again, then first move everything back to push stack - and push.
+So we constantly moving the whole stack contents back and forth between two stacks.
 
 
 Find longest substring of matching parentheses
 Principles: Use a stack. Push -1 to stack. Iterate
-through string. If i is ( push i. Else ) pop and check
-if stack is empty. If empty push -1 back. Else take
-the max of max_len and i - stack(len(stack) - 1) (top
-of stack)
+through string. 
+  if i is "(":
+    push i
+  else:
+    pop and check if stack is empty. 
+    If empty:
+      push -1 back
+    else take the max of max_len and i - stack(len(stack) - 1) (top of stack)
 
 
 Largest rectangle in histrogram
@@ -41,7 +46,6 @@ histogram. If current is lte top of stack, append and
 increment. Else, pop, set width equal to i or I - 1 -
 top of stack and then multiply by hist[i]. Then do
 rest.
-
 
 Nqueens
 Principles: Use helper functions and recursion.
