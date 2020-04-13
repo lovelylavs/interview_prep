@@ -1,0 +1,12 @@
+Substring-Search Algorithms:
+
+from Tushar Roy videos on youtube
+
+1) Brute Force Search O(mn)
+2) KMP algorithm (Knuth-Morris-Pratt) O(m+n)
+3) Z algorithm O(m+n)
+4) Rabin Karp (compare rolling hash to pattern hash) O(mn)
+5) Boyer-Moore (compare ends of strings) O(mn)
+6) Aho-Corasick
+7) Finate state automation
+
