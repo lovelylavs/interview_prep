@@ -1,7 +1,7 @@
 ﻿#! python
 
 """
-# two_sum problem
+# leetcode 167 - two_sum problem, input array is sorted (or not)
 # Given an array of integers, find two numbers such 
 # that they add up to a specific target number.
 #
@@ -22,10 +22,12 @@
 # ---------------------------
 def twosum(nums, target):
     lookup = {}
-    for cnt, num in enumerate(nums):
+    for idx, num in enumerate(nums):
+        idx1 = idx+1
         if target - num in lookup:
-            return lookup[target-num], cnt
-        lookup[num] = cnt
+            return lookup[target-num], idx1
+        lookup[num] = idx1
+    return -1,-1
 
 
 # ---------------------------
