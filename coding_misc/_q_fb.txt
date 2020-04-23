@@ -233,7 +233,7 @@ If we store already calculated numbers in an array - then
 time complexity is O(n), and space complexity is also O(n)
 (or if we only keep last 2 numbers, then space complexity is 0)
 
-There is a ctually a direct formula to calculate Nth Fibonacci number:
+There is actually a direct formula to calculate Nth Fibonacci number:
 
     aa = sqrt(5)
     b1 = (1+aa)/2
