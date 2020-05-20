@@ -9,21 +9,20 @@ def max_valid_len_stack(ss):
     # and index of opening parentheses
     # O(N) for time and O(N) for space
     """
-    nn = len(ss)
     max_len = 0
-    st = []                    # stack
-    st.append(-1)              # idx "before"
-    for ii in range(nn):
+    stack = []                    # stack
+    stack += [-1]                 # idx "before"
+    for ii in range(len(ss)):
         if ss[ii] == '(':
-            st.append(ii)
-        else:                  # ')'
-            st.pop()
-            if len(st) > 0:
-                new_len = ii - st[len(st)-1]
+            stack += [ii]         # growing stack
+        else:                     # ')'
+            if len(stack):
+                stack.pop()
+            if len(stack):
+                new_len = ii - stack[-1]
                 max_len = max(max_len, new_len)
             else:
-                st.append(ii)  # idx "before"
-
+                stack = [ii]     # idx "before"
 
     return max_len
 
@@ -86,20 +85,13 @@ tests = [
 
 
 # ---------------------------------------------
+myfunc = max_valid_len_stack
+# myfunc = max_valid_len
+print(myfunc.__name__)
 for tt in tests :
     ss  = tt[0]
     val = tt[1]
+    result = myfunc(ss)
+    ok = (result == val)
+    print(f"{val:3d}, {result:3d}, {ok}, \"{ss}\"")
 
-
-    print("------- max_valid_len_stack")
-    result = max_valid_len_stack(ss)
-    ok = result == val
-    if not ok:
-        print(ss, "\n", val, result, ok)
-
-
-    print("------- max_valid_len")
-    result = max_valid_len(ss)
-    ok = result == val
-    if not ok:
-        print(ss, "\n", val, result, ok)
