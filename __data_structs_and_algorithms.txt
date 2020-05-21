@@ -86,20 +86,27 @@ BST (Binary Search Tree)
 Trie - prefix tree, good for words/characters
 =======================================
 Binary Heaps (MaxHeap and MinHeap)
-  representing heap in an array N -> (2N, 2N+1)
-  heapify, 
-  adding element (bottom), removing element (top)
-  using heap to make priority queue
-  Time complexity of building a heap is O(N)
-  But time complexity to remove top element is O(n log n)
-  Thus heap sort has complexity of O(n log n). 
-  https://stackoverflow.com/questions/9755721/how-can-building-a-heap-be-on-time-complexity
+    data structure which looks like binary tree
+    where each parent is >= (or <= for min-heap) than values of children
+Binary heaps are a common way of implementing priority queues. 
+Given an array we can "heapify" it in place by swapping elements.
+0 - top (root) element
+1,2 - next layer (left and right children)
+3,4,5,6 - next layer
+etc.
+last parent's idx = floor(N/2) - 1
+
+Time complexity:
+    building heap - O(N)
+    push (at bottom) and adjust - O(lg(N))
+    pop (from top) and adjust   - O(lg(N))
+    heap sort - O(N*log(N))
+https://stackoverflow.com/questions/9755721/how-can-building-a-heap-be-on-time-complexity
 =======================================
 linked list
   head of the list
   going through the list
-  finding cycle in the linked list by using 
-  turtle and rabbit (slow and fast runners)
+  finding cycle in the linked list by using turtle and rabbit (slow and fast runners)
 =======================================
 sorting:
   in-place

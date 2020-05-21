@@ -6,8 +6,8 @@
 #   
 #   2) Start from first bar, and do following 
 #      for every bar ‘hist[i]’ where ‘i’ varies from 0 to n-1.
-#         (a) Zero or going up:
-#             If stack is empty or hist[i] is higher than the bar 
+#         (a) Zero, same, or going up:
+#             If stack is empty or hist[i] is same or higher than the bar 
 #             at top of stack, then push index ‘i’ to stack.
 #         b) Going down:
 #            If this bar hist[i] is smaller than the top of stack hist[ts], 
@@ -27,8 +27,13 @@
 
 # --------------------------------------------------------------
 def calc_max_area(hist): 
+    print(hist)
+    if len(hist) == 0:
+        return 0
+    if len(hist) == 1:
+        return hist[0]
 
-    hist.append(-1) # trick to handle the end of the histogram
+    hist.append(0) # trick to handle the end of the histogram
     stack = list()
     max_area = 0
     ii = 0
@@ -40,18 +45,26 @@ def calc_max_area(hist):
             ii += 1
         else: 
             ts = stack.pop() # top of stack
+            print(f"  popped {ts}")
             di = ii
             if stack:
                 di = (ii - stack[-1] - 1)
             area = hist[ts] * di
-            max_area = max(max_area, area) 
+            print(f"  area = {area}")
+            if area > max_area:
+                max_area = area
+                print(f"    max_area = {max_area}")
 
     return max_area 
 
-
 # --------------------------------------------------------------
 if __name__ == "__main__" :
-    hist = [6, 2, 5, 4, 5, 1, 6]
+    # hist = []
+    # hist = [0]
+    # hist = [3]
+    # hist = [6, 2, 5, 4, 5, 1, 6]
+    hist = [5,0,0,0,0,6]
+    # hist = [5,1,1,1,1,1,1,1,6]
     # hist = [3, 6, 9, 10, 11,11,11,12,12,12,13,13,13,14]
     # hist = [2, 1, 2, 50,50,50,50]
     # hist = [2, 1, 5, 6, 2, 3]
