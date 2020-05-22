@@ -7,6 +7,7 @@
 # Binary heaps are a common way of implementing priority queues. 
 # Binary heap was introduced by J. W. J. Williams in 1964, as a data structure for heapsort.
 #
+# ----------------------------------------------------
 # If we have an array of numbers, then:
 # idx = 0 - root (top element)
 # idx - 1,2 - next layer
@@ -22,6 +23,7 @@
 #     pop (from top) and adjust   - O(lg(N))
 #     heap sort - O(N*log(N))
 #
+# ----------------------------------------------------
 # If we have access to module "heapq",
 # then we can use functions:
 #    heapify(mylist) - convert mylist in place into min-heap
@@ -37,6 +39,20 @@
 #   heappop(h)  # (1, 'write spec')
 #   heappop(h)  # (3, 'create tests')
 #
+# ----------------------------------------------------
+# Note - if we want a priority queue, we can use queue.PriorityQueue
+# 
+#   from queue import PriorityQueue
+#   q = PriorityQueue()
+#   q.put((5, 'write code'))
+#   q.put((7, 'release product'))
+#   q.put((1, 'write spec'))
+#   q.put((3, 'create tests'))
+#   while not q.empty():
+#       next_item = q.get()
+#       print(next_item)
+#
+# ----------------------------------------------------
 # Below is "from-scratch" implementation of a max-heap
 """
 
