@@ -1,27 +1,30 @@
 #! python3
 
+"""
 # binary search in sorted array
 # from https://realpython.com/binary-search-python/
-
-
+"""
 
 # -------------------------------------
-def find_index(arr, value):
+def find_index(arr, target):
     left  = 0
     right = len(arr) - 1
 
     while left <= right:
-        middle = left + (right - left) // 2
+        middle = left + (right - left) // 2  #  a // 2  == int(a/2.0)
 
-        if arr[middle] == value:
+        if arr[middle] == target:
             return middle
 
-        if arr[middle] < value:
+        if arr[middle] < target:
             left = middle + 1
-        elif arr[middle] > value:
+        elif arr[middle] > target:
             right = middle - 1
 
-
+    if left > 0:
+        return left - 1
+  
+    return left
 
 # -------------------------------------
 # searching by some property, not by value
@@ -61,7 +64,7 @@ def contains(arr, value):
     right = len(arr) - 1
 
     if left <= right:
-        middle = left + (right - left) // 2
+        middle = left + (right - left) // 2   
 
         if arr[middle] == value:
             return True

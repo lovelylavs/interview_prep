@@ -1,4 +1,8 @@
+#! python3
+
+"""
 # reverse linked list
+"""
 
 # ----------------------------------------------------
 # Definition for singly-linked list.
@@ -10,7 +14,8 @@ class ListNode:
 # ----------------------------------------------------
 def reverseList(head: ListNode) -> ListNode:
     """
-    # this function creates new nodes
+    # this function creates separate inverted list
+    # (it doesn't change the original list)
     """
     if (head == None) or (head.next == None):
         return head
@@ -38,12 +43,12 @@ def reverseList(self, head: ListNode) -> ListNode:
     """
     # this function reverses the list "in place"
     """
-    if not head: 
-        return None
-    prev, current = head, head.next
-    prev.next = None                   # note - this changes head.next
-    while current: 
-        current.next = prev
-        prev, current = current
-        current = current.next
+    prev = None
+
+    while head:
+        curr = head
+        head = head.next
+        curr.next = prev
+        prev = curr
+
     return prev

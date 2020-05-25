@@ -15,7 +15,7 @@ Excitement, kindness, good karma mean more than technicalities.
   - when given a problem - listen, repeat it 
     and ask questions to make sure you understand it
     make a simple example
-  - aks if you can make certain assumptions, etc.
+  - ask if you can make certain assumptions, etc.
   - be really curious about finding a really good solution
   - verbalize your thought process
   - first code the very simple not-optimized solution
@@ -84,6 +84,8 @@ BST (Binary Search Tree)
   height of the tree h = lg2(N)..N, search time ~h
 =======================================
 Trie - prefix tree, good for words/characters
+  (one node may have 26 children)
+  typically implemented using dictionaries 
 =======================================
 Binary Heaps (MaxHeap and MinHeap)
     data structure which looks like binary tree
@@ -214,4 +216,105 @@ Some tricks and examples:
     finding the 2nd largest value in BST (binary tree)
     (or verifying that the tree is correct)
 ==================================
+Turing Machine (TM) (Turing, 1936) - an very simple abstract 
+    computational machine.
+    An infinite memory tape is divided into discrete "cells".
+    The machine positions its "head" over a cell and "reads" it.
+    Then it uses a "finite table" of instructions/rules to:
+      - optionally update the cell
+      - move head by one position left or right
+      - or halt the computation.
 
+NTM (Non-deterministic TM) - more than one possible action
+    can be taken in some situations. A NTM effectively is able 
+    to duplicate itself at any time, and have each duplicate 
+    take a different execution path.
+
+Turing-complete set of rules - a set which can be used 
+                               to simulate a Turing Machine.
+
+Intractable problem - can be solved in theory, but in reality
+                      takes too much resources/time
+
+Intractability Reductions.
+  Reductions are a way to show that two 
+  problems are essentially identical. 
+  A fast algorithm for one of the problems 
+  implies a fast algorithm for the other.
+
+==================================
+
+Time-complexity classes: P, NP, NP-hard, NP-complete problems
+  P (Polinomial time by a deterministic Turing machine)
+  NP (Nondeterministic Polynomial) - set of decision problems
+     solvable in polynomial time by a NTM (Non-deterministic Turing Machine).
+     Also can be verified in polynomial time by deterministic T.M.
+     Some claim that NP = P, but it is not proven. 
+     The Clay Mathematics Institute is offering a US$1 million reward 
+     to anyone who has a formal proof that P=NP or that P≠NP.
+  NP-hard is the class of decision problems to which all problems 
+     in NP can be reduced to in polynomial time 
+     by a TM (Deterministic Turing Machine). 
+     NP-hard is at least as hard to solve as NP.
+  NP-complete is the intersection of NP-hard and NP.
+     NP-complete is the class of decision problems in NP 
+     to which all other problems in NP can be reduced to 
+     in polynomial time by a TM (Deterministic Turing Machine).
+
+At present, all known algorithms for NP-complete problems 
+require time that is superpolynomial in the input size, 
+and it is unknown whether there are any faster algorithms.
+
+Some NP-complete problems:
+  ( from https://en.wikipedia.org/wiki/NP-completeness )
+  Boolean satisfiability problem (SAT)
+  Knapsack problem
+  Hamiltonian path problem
+  Travelling salesman problem (decision version)
+  Subgraph isomorphism problem
+  Subset sum problem
+  Clique problem
+  Vertex cover problem
+  Independent set problem
+  Dominating set problem
+  Graph coloring problem
+
+==================================
+Minimum spanning tree (MST) is a tree that:
+ - Contains all the nodes (vertices) of the graph.
+ - has no cycles
+ - has minimal total length (sum of "weights" of edges)
+Example - a cable company wanting to lay lines to multiple houses
+while minimizing the amount of cable laid to save money.
+
+==================================
+Kruskal's algorithm (1956) - a minimum-spanning-tree algorithm 
+  which finds an edge of the least possible weight 
+  that connects any two trees in the forest.
+  - https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
+
+==================================
+Shortest Path finding (road navigators, etc.)
+ - https://en.wikipedia.org/wiki/Shortest_path_problem
+  Multiple algorithms:
+    - Dijkstra - single-source shortest path problem with non-negative edge weight.
+    - Bellman–Ford - single-source problem if edge weights may be negative.
+    - A* search algorithm - single pair shortest path using heuristics 
+                            to try to speed up the search.
+    - Floyd–Warshall - all pairs shortest paths.
+    - Johnson's - all pairs shortest paths, and may be faster
+                  than Floyd–Warshall on sparse graphs.
+    - Viterbi - shortest stochastic path problem with an additional 
+                probabilistic weight on each node.
+    - etc.
+
+==================================
+Combinatorial search algorithms  - achieve efficiency by 
+  reducing the effective size of the search space 
+  or by employing heuristics. 
+
+  Classic combinatorial search problems include solving 
+  the eight queens puzzle or evaluating moves in games 
+  with a large game tree, such as reversi or chess.
+
+==================================
