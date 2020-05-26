@@ -506,12 +506,12 @@ def find_duplicate_files(starting_directory):
                     # but also update files_seen_already to have
                     # the new file's info
                     files_seen_already[file_hash] = \
-                        (current_last_edited_time, current_path)nt_path)
+                        (current_last_edited_time, current_path)
 
 # but also update files_seen_already to have
                     # the new file's info
                     files_seen_already[file_hash] = \
-                        (current_last_edited_time, current_path)nt_path)
+                        (current_last_edited_time, current_path)
 
             # if it's a new file, throw it in files_seen_already
             # and record its path and last edited time,

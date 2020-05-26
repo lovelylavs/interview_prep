@@ -480,30 +480,23 @@ Solution: rabit and turtle.
 Solution: in one pass from head to tail of our input list, 
   we point each node's next pointer to the previous item.
 
+                 head
          prev -> curr -> curr.next
               <-      <-  
 
-def reverse(head):
-    curr = head
+def reverse_list(head):
     prev = None
-    next = None
 
-    while curr:
-        next = curr.next
+    while head:
+        curr = head
         curr.next = prev
         prev = curr
-        curr = next
+        head = curr.next   # move head
 
     return prev
 
-
 # --------------------------------------------------------------
-25
-Kth to Last Node in a Singly-Linked List 
-Find the kth to last node in a singly-linked list. We'll start
-with a simple solution and move on to some clever tricks. keep
-reading 
-
+25 of 46: find Kth to Last Node in a Singly-Linked List 
 
 Solution 1:
   Walk 1st time to get the length of the list N.
@@ -514,259 +507,149 @@ Solution 2:
         left_node  = left_node.next
         right_node = right_node.next
 
-
 # --------------------------------------------------------------
-26
-Reverse String in Place 
-Write a function to reverse a string in-place.
-Solution: convert string to list, do swapping, then join
-
-
-    def reverse(string):
-        string_list = list(string)
-    
-        left_index  = 0
-        right_index = len(string_list) - 1
-        while left_index < right_index:
-            # Swap characters
-            string_list[left_index], string_list[right_index] = \
-                string_list[right_index], string_list[left_index]
-            # Move towards middle
-            left_index  += 1
-            right_index -= 1
-    
-        return ''.join(string_list)
-
+26 of 46: Reverse String in Place 
+  Write a function to reverse a string in-place.
+  Solution: convert string to list, do swapping (left_index, right_index), then join
+  (Note: we use list because strings dont' support changing values (other than replace())
 
 Complexity: O(N) time, O(1) space
 
-
 # --------------------------------------------------------------
-27
-Reverse Words 
-Write a function to reverse the word order of a string
-presented as a lsit of chars, in-place. 
-
+27 of 46: Reverse word order in a string presented as a list of chars, in-place. 
 
 Solution:
-  step1: reverse all chars in the whole string
-  step2: reverse each word in place
-
+  make a procedure rev_chars() to reverse characters between two indexes (inclusive)
+  use it to reverse the whole array, 
+            then reverse each word separately
 
 def rev_chars(arr, idx1, idx2):
-    # Walk towards the middle, from both sides
     while idx1 < idx2:
-        # Swap the left char and right char
-        arr[idx1], arr[idx2] = arr[idx2], arr[idx1]
-        idx1  += 1
+        arr[idx1], arr[idx2] = arr[idx2], arr[idx1] # swap
+        idx1  += 1                                  # move to center
         idx2 -= 1
 
-
 def reverse_words(arr):
-    # First we reverse all the chars in the entire message
-    rev_chars(arr, 0, len(arr)-1)
-
-
+    rev_chars(arr, 0, len(arr)-1)   # reverse the whole thing
     idx1 = 0
-
-
-    for ii in range(len(arr) + 1):
-        if (ii == len(arr)) or (arr[ii] == ' '):
-            rev_chars(arr, idx1, ii - 1)
-            idx1 = i + 1
-
+    for ii in range(len(arr) + 1):               # move within word
+        if (ii == len(arr)) or (arr[ii] == ' '): # if end of word
+            rev_chars(arr, idx1, ii - 1)         #   reverse word
+            idx1 = i + 1                         #   shift to next char
 
 Complexity: O(N) time, O(1) space
 
+# --------------------------------------------------------------
+28 of 46: Parenthesis Matching 
+  Write a function that finds the corresponding closing
+  parenthesis given the position of an opening parenthesis in a
+  string.
+
+  Solution - walk and count open/close parens.
+  Complexity: O(N) time, O(1) space
 
 # --------------------------------------------------------------
-28
-Parenthesis Matching 
-Write a function that finds the corresponding closing
-parenthesis given the position of an opening parenthesis in a
-string.
+29 of 46: Bracket Validator 
+  Write a super-simple parser of JavaScript code 
+  that can find unmatched brackets.
 
-
-Solution - walk and count open/close parens.
-
-
-    def get_closing_paren(sentence, opening_paren_index):
-        open_nested_parens = 0
-        position = opening_paren_index + 1
-    
-        while position <= len(sentence) - 1:
-            char = sentence[position]
-    
-            if char == '(':
-                open_nested_parens += 1
-            elif char == ')':
-                if open_nested_parens == 0:
-                    return position
-                else:
-                    open_nested_parens -= 1
-    
-            position += 1
-    
-        raise Exception("No closing parenthesis :(")
-
-
-Complexity: O(N) time, O(1) space
-
+  skipped (see in _qa_46.txt)
+  Complexity O(n) time, and O(n) space 
 
 # --------------------------------------------------------------
-29
-Bracket Validator 
-Write a super-simple parser of JavaScript code 
-that can find unmatched brackets.
+30 of 46: Permutation Palindrome 
+  Write an efficient function that checks whether some permutation
+  of a string is a palindrome (example: civic)
 
+  Solution: check that no more than 1 character appears odd number of times.
 
-def is_valid(code):
-    openers_to_closers = {
-        '(' : ')',
-        '{' : '}',
-        '[' : ']'
-    }
-
-
-    openers = frozenset(openers_to_closers.keys())
-    closers = frozenset(openers_to_closers.values())
-
-
-    openers_stack = []
-
-
-    for char in code:
-        if char in openers:
-            openers_stack.append(char)
-        elif char in closers:
-            if not openers_stack:
-                return False
+    def has_palindrome_permutation(ss):
+        odd_set = set()
+        for ch in ss:
+            if ch in odd_set:
+                odd_set.remove(char)
             else:
-                last_unclosed_opener = openers_stack.pop()
+                odd_set.add(char)
+        return len(odd_set) <= 1
 
-
-                # if this closer doesn't correspond to the most recently
-                # seen unclosed opener, short-circuit, returning false
-                if not openers_to_closers[last_unclosed_opener] == char:
-                    return False
-
-
-    return openers_stack == []
-
-
-Complexity
-O(n) time, and O(n) space 
-
+  Complexity O(n) time, and O(1) space 
 
 # --------------------------------------------------------------
-30
-Permutation Palindrome 
-Write an efficient function that checks whether some permutation
-of a string is a palindrome (example: civic)
+31 of 46: Recursive String Permutations 
+  Write a recursive function generating all permutations of a string.
 
-
-Solution: check that we have no more than 1 character appearing 
-odd number of times.
-
-
- in q_fb.txt
-
-
-# --------------------------------------------------------------
-31
-Recursive String Permutations 
-Write a recursive function generating all permutations of a string.
-
-
-Solution: 
+  Solution: 
     If we're making all permutations for "cat," we take all
     permutations for "ca" and then put "t" in each possible
     position in each of those permutations.
     We use this approach recursively:
 
 
-    def get_permutations(ss):
-        if len(string) <= 1:
+    def get_perms(ss):
+        if len(ss) <= 1:
             return set([ss])
-        all_except_last = ss[:-1]
-        last_char = ss[-1]
-    
-        # Recursive call: get all possible permutations 
-        # for all chars except last
-        perm_all_except_last = get_permutations(all_except_last)
-    
-        # Put the last char in all possible positions 
-        # for each of the above permutations
-        permutations = set()
-        for perm in perm_all_except_last:
-            for idx in range(len(all_except_last) + 1):
-                permutation = (perm[:idx]+last_char+perm[idx:])
-                permutations.add(permutation)
-    
-        return permutations
+        ss1 = ss[:-1]
+        ch1 = ss[-1]
+        perms1 = get_perms(ss1)
+        perms2 = set()
+        N = len(ss1)
+        for perm in perms1:
+            for ii in range(N+1):
+                perms2.add(perm[:ii] + last_char + perm[ii:])
+        return perms2
 
+  Complexity: 1 + 1*2 + 2*3 + 3*4 + ... + (n-1)*n = 1+ (n-1)n(n+1)/3  ~ O(n*n*n)
 
 # --------------------------------------------------------------
-32
-Top Scores 
-Efficiently sort numbers in an array, where each number is below
-a certain maximum.
+32 of 46: Top Scores 
+  Efficiently sort positive numbers in an array, where each number is below
+  a certain maximum.
+  Solution:
 
+    def mysort(arr, max_val):
+        buf = [0] * (max_val+1)
+        for aa in arr:
+            buf[aa] += 1
+        arr2 = [0] * len(arr)
+        ii=0
+        for jj in range(len(buf):
+            val = buf[jj]
+            if val > 0:
+                arr2[ii] = val
+                ii += 1
+        return arr2
 
-Solution - use "counting sort"
-
-
-    def sort_scores(unsorted_scores, highest_possible_score):
-    
-        # list of 0s at indices 0..highest_possible_score
-        score_counts = [0] * (highest_possible_score+1)
-    
-        # populate score_counts
-        for score in unsorted_scores:
-            score_counts[score] += 1
-    
-        # populate the final sorted list
-        sorted_scores = []
-    
-        # for each item in score_counts (from top scores down)
-        for score in range(len(score_counts) - 1, -1, -1):
-            count = score_counts[score]
-            for _ in range(count):
-                sorted_scores.append(score)
-    
-        return sorted_scores
-
-
-Complexity O(n) time and O(n) space
-
+  Complexity O(n) time and O(n) space
 
 # --------------------------------------------------------------
-33
-Which Appears Twice 
-We have array of (N+1) numbers with values 1..N. 
-We know that only one number is duplicated.
-Find it.
+33 of 46: Which Appears Twice 
+  We have array arr of (N+1) numbers with values 1..N. 
+  We know that only one number is duplicated.
+  Find it.
+  consider:  arr1 - our array, arr2 - array of numbers 1..N 
 
-
-Solution:  sum(all_numbers) - N*(N+1)/2
-
-
-# --------------------------------------------------------------
-34
-Word Cloud Data 
-You're building a word cloud. Write a function to figure out how
-many times each word appears so we know how big to make each
-word in the cloud.
-
-
- in q_google.txt
-
+  Solution1: sum(arr1) - sum(arr2)
+  Solution2: XOR all elements of arr1 & arr2 together
 
 # --------------------------------------------------------------
-35
-In-Place Shuffle 
-Do an in-place shuffle on an array of numbers. 
-The shuffle must be "uniform," meaning each item in the original
+34 of 46: Word Cloud Data Generator 
+  Write code that takes a string and builds a dict {word:count}
+  Complexity:
+    Think how to handle capital letters, hyphenated words, 
+    punctuation, Bill vs bill, etc.
+
+  'We came, we saw, we conquered...then we ate Bill's (Mille-Feuille) cake.'
+
+  'The bill came to five dollars.'
+
+  You should not use regex.
+  You should do this in O(n) runtime and space.
+  Yo should build our own split_words() method.
+
+# --------------------------------------------------------------
+35 of 46: In-Place Shuffle 
+  Do an in-place shuffle on an array of numbers. 
+  The shuffle must be "uniform," meaning each item in the original
 list must have the same probability of ending up in each spot 
 in the final list.
 Assume that you have a function get_random(floor, ceiling) 
@@ -776,7 +659,6 @@ for getting a random integer that is >= floor and <= ceiling.
 Solution: semi-famous algorithm known as the Fisher-Yates 
     shuffle (sometimes called the Knuth shuffle).
 
-
     import random
     
     def get_random(floor, ceiling):
@@ -785,102 +667,187 @@ Solution: semi-famous algorithm known as the Fisher-Yates
     def shuffle(lst):
         if len(lst) <= 1:
             return lst
-        nn = len(lst) - 1
-        for ii in xrange(0, nn):
-            rr = get_random(ii, nn)
+        N = len(lst) - 1
+        for ii in range(N):
+            rr = get_random(ii, N)
             if rr != ii:
                 lst[ii], lst[rr] = lst[rr], lst[ii]
 
-
-
-
-Complexity O(n) time and O(1) space
-
+  Complexity O(n) time and O(1) space
 
 # --------------------------------------------------------------
-36
-Single Riffle Shuffle 
-Write a function to tell us if a deck of cards is a single
-riffle of two other halves.
+36 of 46: Single Riffle Shuffle 
+  Write a function to tell us if a deck of cards is a single
+  riffle of two other halves.
+  Single riffle of two parts means we put them side-by-side
+  and merge together.
+  
+  Solution: we use indexes i1 and i2 in ranges 0..len(half1), 0..len(half2)
+  As we go through the deck, each next card should be next in one
+  of the halves - and we update corresponding index.
+  If this breaks at any step - it is not a single riffle.
 
-
- in q_fb.txt
-
+Complexity:
+   O(n) time and O(1) additional space.
 
 # --------------------------------------------------------------
-37
-Simulate 5-sided die 
-Given a 7-sided die, make a 5-sided die.
-
+37 of 46: Simulate 5-sided die 
+  Given a 7-sided die (function rand7() returns 1..7)
+  make a 5-sided die:
 
   def rand5():
-    result = 7  # arbitrarily large
+    result = 6  # arbitrarily large
     while result > 5:
-        result = rand7() // re-roll
+        result = rand7() # re-roll
     return result
 
-
 # --------------------------------------------------------------
-38
-Simulate 7-sided die 
-Given a 5-sided die, make a 7-sided die.
-
+38: Simulate 7-sided die 
+  Given a 5-sided die, make a 7-sided die.
+  We will need to roll the 5-sided die at least twice. 
+  Rolling it twice creates 5^2=25 possible outcomes.
+  We can assign the first 21 outcomes to 7 groups of 3.
+  If > 21 - we reject and re-roll.
+  https://basile.be/2018/09/14/simulating-a-7-sided-die-from-a-5-sided-die/
 
     def rand7():
         while True:
-            roll1 = rand5()
-            roll2 = rand5()
-            outcome_number = (roll1-1) * 5 + (roll2-1) + 1
-            if outcome_number > 21:
-                continue
-            return outcome_number % 7 + 1
+            # rol twice - get 25 combinations
+            roll51 = rand5()   # 1..5
+            roll52 = rand5()   # 1..5
+            # Lets enumerate these 25 combinations:
+            combo = (roll51-1) * 5 + (roll52-1) + 1
+            if combo > 21:
+                continue  # need to re-roll
 
+            # if we here - the combo i in range 1..21
 
- in q_google.txt
-
-
-# --------------------------------------------------------------
-39
-Two Egg Problem 
-A building has 100 floors. Figure out the highest floor an egg
-can be dropped from without breaking.
-
-
- in q_google.txt
-
+            return 1 + (combo-1) // 3
 
 # --------------------------------------------------------------
-40
-Find Repeat, Space Edition 
-Find Duplicate, Space Edition
-Figure out which number is repeated. But here's the catch:
-optimize for space.
+39 of 46: Two Egg Problem 
+  A building has 100 floors. 
+  Figure out the highest floor an egg can be dropped from without breaking.
 
-
- in q_google.txt
-
-
-# --------------------------------------------------------------
-41
-Find Repeat, Space Edition BEAST MODE 
-Fine Duplicate, Space Edition BEAST MODE
-Figure out which number is repeated. But here's the catch: do it
-in linear time and constant space!
-
-
- in q_google.txt
-
+    Let's say n is the number of floors we'll skip the first time, 
+    and we know 1 is the number of floors we'll skip last. 
+    Our equation will be: n + (n-1) + ... + 1
+    n = 13.651
+    
+    So we will use series: 14, 27, 39, ...
+    Total number of drops (worst case) = 14
 
 # --------------------------------------------------------------
-42
-Find Duplicate Files 
-Your friend copied a bunch of your files and put them in random
-places around your hard drive. Write a function to undo the
-damage.
+40 of 46: Find Duplicate (at least one) at O(1) space
+  We have a list of (n+1) integers in range 1..n.
+  We need to find a value whic his duplicated.
+  Note - there may be several of them, or it may be duplicated more than once.
+  We just need one such value.
+  Trivial solution is to use hash - then complexity is O(n) time and O(n) space.
+  We want to optimize for space - do it in O(1) for space.
+
+  First solution - similar to a binary search, except we divide the range 
+  of possible answers in half at each step, rather than dividing the list in half.
+
+ - Find the number of integers in our input list which lie within the range 
+      1..n/2
+ - Compare that to the number of possible unique integers in the same range.
+ - If the number of actual integers is greater than the number of possible integers, 
+   we know there s a duplicate in the range 1..n/2, 
+   so we iteratively use the same approach on that range.
+ - If the number of actual integers is not greater than the number of possible integers,
+   we know there must be duplicate in the range (1+n/2)..n
+   so we iteratively use the same approach on that range.
+ - At some point our range will contain just 1 integer, which will be our answer.
+
+  see also nex problem (#41)
+
+# --------------------------------------------------------------
+41 of 46: Find Duplicate (at least one) at O(1) space, BEAST MODE 
+
+Solution idea: 
+  1. We convert array of numbers into a linked list.
+     Each element of array has index (1..n) and value.
+     For linked list: value = value, next => points to the elemnt with value-th index.
+  2. If we draw linked list diagram - we will find that duplicates point
+     to the same node. So we will ahve a "loop with a rope".
+
+     Example:  [2,3,1,3]
+     
+                  ---<---     
+                 /       \
+                2 -> 3 -> 1 <- 3
+     
+     Positions: 1    2    3    4
 
 
- in q_google.txt
+  3. We use rabit and turtle to find the loop and figure out its length "L".
 
+  4. Once we know the length - we can start two turtles "L" apart. 
+     The first turtle enteres the loop and make the whole cycle to meet with 
+     the 2nd turtle. They meet at the start of the loop - this is the duplicate.
+
+  Note - there may be isolated loops without duplicates, 
+         for example: 1 -> 2 -> 3 -> 1
+         We need the loop with the tail.
+
+def find_duplicate(int_list):
+    n = len(int_list) - 1
+
+    # STEP 1: GET INSIDE A CYCLE 
+    # start at position n+1 and walk n steps to 
+    # find a position guaranteed to be in a cycle 
+    position_in_cycle = n + 1 
+    for _ in range(n):
+        position_in_cycle = int_list[position_in_cycle - 1] 
+        # we subtract 1 from the current position to step ahead: 
+        # the 2nd *position* in a list is *index* 1
+
+    # STEP 2: FIND THE LENGTH OF THE CYCLE 
+    # find the length of the cycle by remembering a position in the cycle 
+    # and counting the steps it takes to get back to that position 
+    remembered_position_in_cycle = position_in_cycle 
+    current_position_in_cycle = int_list[position_in_cycle - 1] # 1 step ahead 
+    cycle_step_count = 1
+
+    while current_position_in_cycle != remembered_position_in_cycle:
+        current_position_in_cycle = int_list[current_position_in_cycle - 1] 
+        cycle_step_count += 1
+
+    # STEP 3: FIND THE FIRST NODE OF THE CYCLE 
+    # start two pointers 
+    # (1) at position n+1 
+    # (2) ahead of position n+1 as many steps as the cycle's length 
+    pointer_start = n + 1 
+    pointer_ahead = n + 1 
+    for _ in range(cycle_step_count):
+        pointer_ahead = int_list[pointer_ahead - 1]
+
+    # advance until the pointers are in the same position 
+    # which is the first node in the cycle 
+    while pointer_start != pointer_ahead:
+        pointer_start = int_list[pointer_start - 1] 
+        pointer_ahead = int_list[pointer_ahead - 1]
+
+    # since there are multiple values pointing to the first node 
+    # in the cycle, its position is a duplicate in our list 
+    return pointer_start
+
+# --------------------------------------------------------------
+42 of 46: Find Duplicate Files. 
+Write a function that returns a list of all the duplicate files. 
+Return list of tuples of (duplicate, original).
+We assume that each file was only duplicated once.
+And the duplicate has a newer timestamp.
+
+Idea:
+  We go through directory tree.
+  for each file we generate a unique hashval and get a timestamp
+  We store them in dict 
+    files_seen_already[hashval] = (timestamp, filepath)
+  If we find a duplicate (with the same hashval), 
+  we record it in a list of duplicates:
+     duplicates.append(older_path,newer_path)
 
 # --------------------------------------------------------------
 43
@@ -893,36 +860,81 @@ the world.
 
 
 # --------------------------------------------------------------
-44
+44 of 46
 URL Shortener 
 Design a URL shortener, like bit.ly
+This is a system-design question.
+1. Scope the project. 
+   Write/ask what features we need, ...
+   just API or alos a website?
+   Do we need authentication or user accounts or developer keys? 
+   Can people modify or delete links? Let's leave that out for now.
+   Life span of a link?  Do we automatically remove old ones? (or not visited?)
+   Should we let people choose their shortlink, or just always auto-generate it? 
+   Do we need analytics, so people can see how many people are clicking on a link, etc?
+2. Design goals. If we're designing something, we should know what we're optimizing for! 
+   What are we optimizing for?
+   Traffic, response time, caching, ...
 
+# --------------------------------------------------------------
+45 of 46: Graph Coloring 
+Color the nodes in a graph so that neighbors always have different colors.
+Given an undirected graph with maximum degree D 
+(max number of connections for a given node), 
+ﬁnd a graph coloring using at most D + 1 colors.
+Do it in linear time and space.
+Check edge cases: nodes with no edges, cycles, loops (loop = node to itself)
 
-XXXXXXXXXXXXXXXXXXXX
+class GraphNode:
+    def __init__(self, label):
+        self.label = label 
+        self.neighbors = set() 
+        self.color = None
+
+def color_graph(graph, colors):
+    for node in graph:
+        if node in node.neighbors:
+            raise Exception(f'loops not allowed: {node.label}')
+        taken_colors = set([n.color for n in node.neighbors if n.color])
+        for color in colors:
+            if color not in taken_colors:
+                node.color = color 
+                break
+
+Complexity: O(N_nodes + N_edges)
 
 
 # --------------------------------------------------------------
-45
-Graph Coloring 
-Color the nodes in a graph so adjacent nodes always have
-different colors.
+46 of 46: MeshMessage 
+  You wrote a trendy new messaging app, MeshMessage, to get around
+  flaky cell phone coverage. But messages are taking too long to
+  send  ...
+  Given information about active users on the network, find the 
+  shortest route for a message from one user (the sender) to another
+  (the recipient). Return a list of users that make up this route.
 
+    network = {
+      'Min' : ['William', 'Jayden', 'Omar'], 
+      'William' : ['Min', 'Noam'], 
+      'Jayden' : ['Min', 'Amelia', 'Ren', 'Noam'], 
+      'Ren' : ['Jayden', 'Omar'], 
+      'Amelia' : ['Jayden', 'Adam', 'Miguel'], 
+      'Adam' : ['Amelia', 'Miguel', 'Sofia', 'Lucas'], 
+      'Miguel' : ['Amelia', 'Adam', 'Liam', 'Nathan'], 
+      'Noam' : ['Nathan', 'Jayden', 'William'], 
+      'Omar' : ['Ren', 'Min', 'Scott'], 
+      ...
+    
+    }
+    
+    For the network above, a message from Jayden to Adam 
+    should have this route:
+    
+      ['Jayden', 'Amelia', 'Adam']
 
-XXXXXXXXXXXXXXXXXXXX
-
-
-# --------------------------------------------------------------
-46
-MeshMessage 
-You wrote a trendy new messaging app, MeshMessage, to get around
-flaky cell phone coverage. But messages are taking too long to
-send...
-
-
-Given information about active users on the network, find the 
-shortest route for a message from one user (the sender) to another
-(the recipient). Return a list of users that make up this route.
-
+  So - we need to find a shortest path in the graph of users.
+  Suppose the graph is undirected and unweighted.
+  We will use BFS (breadth-first-search) - using a queue.
 
     from collections import deque
     
@@ -973,11 +985,6 @@ shortest route for a message from one user (the sender) to another
         # so there's NO path from start_node to end_node
         return None
 
-
-Complexity: O(M+N) time, O(N)space
-
-
-XXXXXXXXXXXXXXXXXXXX
-
+Complexity: O(N_nodes + N_neigbors) time, O(N_nodes) space
 
 # --------------------------------------------------------------
