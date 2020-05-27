@@ -16,40 +16,47 @@
 # Example:
 # Input  : numbers={2, 7, 11, 15}, target=9
 # Output : index1=1, index2=2
+# 
+# Time/Space complexity O(N)
+# ----------------------------------------
+# 3sum - return triplets summing to zero
+# easy solution has complexity O(N*N)
+# https://en.wikipedia.org/wiki/3SUM
 """
-
 
 # ---------------------------
 def twosum(nums, target):
-    lookup = {}
-    for idx, num in enumerate(nums):
-        idx1 = idx+1
-        if target - num in lookup:
-            return lookup[target-num], idx1
-        lookup[num] = idx1
+    seen = {}       # num : pos
+    for ii, num in enumerate(nums):
+        pos = ii+1  # use 1-based pos insead of 0-based ii
+        if target - num in seen:
+            return seen[target-num], pos
+        seen[num] = pos
     return -1,-1
 
+# ---------------------------
+# here is convoluted version
+
+nums = (6, 7, 11, 15, 3, 6, 5, 3)
+
+def twosum(nums=None, target=6):
+    hh = dict(((v, i) for i, v in enumerate(nums)))
+    return next(((i+1, hh.get(target-v)+1)
+                   for i, v in enumerate(nums)
+                   if hh.get(target-v, i) != i), None)
 
 # ---------------------------
-def twosum(nums=(6, 7, 11, 15, 3, 6, 5, 3), target=6):
-    lookup = dict(((v, i) for i, v in enumerate(nums)))
-    return next(( (i+1, lookup.get(target-v)+1)
-            for i, v in enumerate(nums)
-                if lookup.get(target-v, i) != i), None)
-
-
-# ---------------------------
-def two_sum(nums, target):
-    look_for = {}
+def twosum(nums, target):
+    seen = {}          # num : index
     for n,x in enumerate(nums):
         try:
-            return look_for[x] + 1, n + 1
+            return seen[x] + 1, n + 1   # return 1-based position
         except KeyError:
-            look_for.setdefault(target - x, n)
-
+            seen.setdefault(target - x, n)
 
 # ---------------------------
 # here is zero-based solution
+
 def twosum_indices_linear(nums, target):
     numtoindexmap = {}
     for num1_index, num1 in enumerate(nums):
@@ -61,16 +68,15 @@ def twosum_indices_linear(nums, target):
         else:
             return num1_index, num2_index
 
-
 # --------------------------------------------------------------
 # three_sum() problem
 #
-# Given an array of n integers, find all unique triplets which sum to zero.
+# Given an array of n integers, find all unique triplets 
+# which sum to zero.
 # Return a list of lists, if there are more than one triplet.
 # For example, given input as [-1, 0, 1, 2, -1, -4],
 # the solution will be: [ [-1, 0, 1], [-1, -1, 2] ]
 # --------------------------------------------------------------
-
 
 # ---------------------------
 import itertools
@@ -86,27 +92,24 @@ for subset in itertools.combinations(stuff, 3):
             ls.append(list(subset))
 print(ls)
 
+# Out: [[-1, -1, 2], [-1, 0, 1]]
 
 # ---------------------------
 from collections import Counter
-
 
 def threeSum(self, nums):
     res = []
     counts = Counter(nums)
     num_counts = sorted(counts.items())
 
-
     # Handle the only case where we pick three same nums
     if counts[0] >= 3:
         res.append([0] * 3)
-
 
     for i, (first, first_count) in enumerate(num_counts):
         # Pick two of these and one greater
         if first_count >= 2 and first < 0 and -(first * 2) in counts:
             res.append([first, first, -(first * 2)])
-
 
         # Pick one and two greater
         for j in range(i + 1, len(num_counts)):
@@ -115,15 +118,12 @@ def threeSum(self, nums):
             if second_count >= 2 and -first == 2 * second:
                 res.append([first, second, second])
 
-
             # Pick this as second num and third which is greater
             third = -(first + second)
             if third > second and third in counts:
                 res.append([first, second, third])
 
-
     return res
-
 
 # ---------------------------
 def threeSum(nums):
@@ -150,10 +150,8 @@ def threeSum(nums):
     unique_lst = []
     [unique_lst.append(sublst) for sublst in result if not unique_lst.count(sublst)]
 
-
 # ---------------------------
 # idea of code with iterators (not tested):
-
 
 def three_sum(nums):
     def uniques(nums_sorted, start, stop, step):
@@ -163,7 +161,6 @@ def three_sum(nums):
             if value != prev:
                 prev = value
                 yield idx, value
-
 
     def two_pointer(nums_sorted, neg_a, start):
         biter = uniques(nums_sorted, start, len(nums_sorted), 1)
@@ -177,7 +174,6 @@ def three_sum(nums):
                 bidx, b = next(biter)
             if two_sum >= neg_a:
                 cidx, c = next(citer)
-
 
     nums = sorted(nums)
     return [[a, b, c] for aidx, a in uniques(nums, 0, len(nums) - 2, 1)

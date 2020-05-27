@@ -58,6 +58,9 @@ print(idx) # None
 
 # -------------------------------------
 # implementing "contains" function
+# accepts sorted array of values and a value
+# returns True of False depending on
+# whether the value is in the array
 
 def contains(arr, value):
     left  = 0
