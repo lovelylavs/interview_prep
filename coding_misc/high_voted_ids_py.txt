@@ -3,11 +3,11 @@
 # --------------------------------------------------------------
 #    Given a list of tuples consisting of an id and a
 #    timestamp, as well as a given timestamp, return the id
-#    with the highest votes for all votes that occurred
+#    with the highest vote for all votes that occurred
 #    before the given timestamp.
 #    
 #    Follow up: return the k ids with the highest votes
-#    before the given tinestamp
+#    before the given timestamp
 # --------------------------------------------------------------
 
 import sys, os, time

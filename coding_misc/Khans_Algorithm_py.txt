@@ -1,4 +1,9 @@
-﻿"""
+﻿#! python3
+
+"""
+#   Topological sort - Khan's Algorithm
+#       https://en.wikipedia.org/wiki/Topological_sorting
+#
 #   Given a list of projects and a list of project dependencies, 
 #   output a valid build order. 
 #   If there is no build order, return a string saying so. 
@@ -13,9 +18,6 @@
 #   
 #   output: 
 #     [2, 4, 6, 3, 5, 1]
-#   
-#   Solution: Topological Sort 
-#       https://en.wikipedia.org/wiki/Topological_sorting
 """
 
 

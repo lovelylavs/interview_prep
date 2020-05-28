@@ -12,13 +12,17 @@
 # Output: 4
 # Explanation: The longest consecutive elements sequence 
 #              is [1, 2, 3, 4]. Therefore its length is 4.
-# 
+# Idea:
+#   Make a set of all values
+#   If value x is in the set, but value (x-1) is not,
+#   then x is a beginning of of a sequence.
+#   Then follow it (check if x+1 is in set, etc.)
+
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
         myset = set(nums)
         mymax = 0
-        # look for beginnings of sequences
-        # and follow them forward
+
         for x in myset:
             if x - 1 not in myset:  # beginning 
                 y = x + 1

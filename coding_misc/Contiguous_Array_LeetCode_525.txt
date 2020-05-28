@@ -11,6 +11,17 @@
 #   Input: [0,1,0]
 #   Output: 2
 #   Explanation: [0, 1] or [1, 0] are examples of the longest one
+# 
+# Idea:
+#   change all Os to -1s.
+#   Lets go through the array and calculate the running sum()
+#   When we have +1 - the sum goes up, when -1 - it goes down.
+#   The values of the sum we will store in the hash as keys, the value - index
+#   of the first time we got this sum value.
+#   If we hit the same value again (if it is already in the hash), this means
+#   that between these points we had equal number 1s and -1s. So we can calculate
+#   the lengt - and update the max_length as needed.
+#   Complexity O(N) for time and space
 
 class Solution:
     def findMaxLength(self, nums: List[int]) -> int:

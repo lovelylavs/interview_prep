@@ -1,4 +1,10 @@
-﻿package main
+﻿
+// Two kangaroos start jumping from positions x1 & x2.
+// They jump syncronously and in the same direction,
+// but the lengths of jumps may differ: v1 & v2
+// Question - will they meet at the same location?
+
+package main
 import (
     "bufio"
     "fmt"
