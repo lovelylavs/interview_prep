@@ -32,6 +32,22 @@ Below some short notes about data structures and algorithms.
 You need to understand them.
 Then do lots of practice problems to learn how to use them.
 There are many sites with questions and answers, books, youtube videos, etc.
+# ---------------------------------------------------------
+Books:
+ - Introduction to Algorithms, 3rd Edition (The MIT Press)
+ - Cracking the Coding Interview: 189 Programming Questions 
+   and Solutions 6th Edition - by Gayle Laakmann McDowell
+ - Computer Algorithms - by Horowitz, Sahni, Rajsekaran
+ - Data Structures and Algorithms - by Aho, Ullman, Hopcroft
+ - Algorithm Design: Foundations, Analysis, and Internet Examples
+   by Goodrich, Tamassia
+Training websites:
+  - leetcode
+  - hackerrank
+  - https://www.educative.io/
+  - Interview Cake
+Youtube - multiple channels
+# ---------------------------------------------------------
 
 =======================================
 array, list, tuple, sequence, index, slice
