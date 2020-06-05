@@ -55,15 +55,6 @@ def init_map():
     return mmm
 
 # ----------------------------------------------------
-def map_copy(mm1):
-    """ creates and returns a copy of the map """
-    mm2 = []
-    Nrows = len(mm1)
-    for row in range(Nrows):
-        mm2 +=[mm1[row][:]]
-    return mm2
-
-# ----------------------------------------------------
 def house_locations(mm1):
     """ returns list of locations of houses as [(row,col),...] """
     houses = []
@@ -164,11 +155,6 @@ if __name__ == "__main__":
 
 # ----------------------------------------------------
 #    output:
-#        houses=[(0, 2), (1, 5), (3, 1), (4, 5)]
-#        found 1
-#        found 3
-#        found 15
-#        found 6
 #        found min sum(paths)=25 at (row,col) = (1, 2)
 #        ['-', '-', 'H', '-', 'T', '-']
 #        ['-', '-', 'W', '-', '-', 'H']
