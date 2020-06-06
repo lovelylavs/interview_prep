@@ -1,4 +1,4 @@
-passing technical IT interview
+Passing technical IT interview
 
 Two types of interviews:
  Type 1. technical screening
@@ -50,18 +50,53 @@ Youtube - multiple channels
 # ---------------------------------------------------------
 
 =======================================
-array, list, tuple, sequence, index, slice
+array - arr[i] - elements have same type
+
+list  - lst[i] - like array but:
+  - elements may have different size and type
+  - elements may be complext structures (lists, dicts, etc.)
+  [1,2,3]
+  [1,"dog",[2,3]]
+
+tuple - like a list, but immutable (can not be changed)
+  (1,2,3)
+  ((1,2),(3,4))
+
+string - "abcde fghij" - ordered set of characters
+
+sequence - any ordered set (list, tuples, string, ...)
+
+index - numbering elements in a sequence (usually starts with 0)
+
+slice - subset of elements of a sequence, for example:
+    aa = "mama papa"
+          012345678
+    bb = aa[2:5] = "ma p"   (2 - included, 5 - not included)
 =======================================
 stack (FILO = First In Last Out)
+    st = [1,2,3]
+    st.append(4)     [1,2,3,4]
+    aa = st.pop()    aa=4, st=[1,2,3]
+
 queue (FIFO = First In First Out)
+    import collections
+    qq = collections.deque()
+    for ii in range(6): 
+        qq.append(ii)  # qq == deque([0, 1, 2, 3, 4, 5])
+    aa = qq.popleft()  # 0
+    bb = qq.popleft()  # 1
+                       # qq == deque([2, 3, 4, 5])
+
 priority queue
     (ticket, priority)
   [(4,5),(3,5),(2,5)(1,5)]
   [(4,5),(2,5)(1,5),(3,1)]
+
 =======================================
 set (unique elements)
+
 hash (hashmap, dict)
-Example of hashing function:
+   Example of hashing function:
    # ------------------------------
    hash = 0
    for char in key_str:

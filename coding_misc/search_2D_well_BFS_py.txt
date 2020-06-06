@@ -20,32 +20,33 @@ sum distance from all the houses.
 import os, sys, collections
 
 # ----------------------------------------------------
-def init_map():
+def init_map(map_num):
     """ populate map with trees and houses """
-    mystr1 = """
+    map_array = []
+    map_array.append("""
             = = = =
             = H T =
             = H T =
             = = H =
-    """
-    mystr2 = """
+    """)
+    map_array.append("""
          - - H - T -
          - - - - - H
          - - T - T -
          - H T - - -
          - - T - T H
          - - - - - -
-    """
-    mystr3 = """
+    """)
+    map_array.append("""
          - - - - - -
          - - - - - -
          - H T - H -
          - - - - - -
          - - - - - -
          - - - - - -
-    """
+    """)
 
-    mystr = mystr1  # change this to test different inputs
+    mystr = map_array[map_num]
 
     arr = mystr.strip().split("\n")
     arr = [x.strip() for x in arr]
@@ -78,21 +79,21 @@ def calc_best_route_size(mm,well,house,Nbig):
     visited[wr][wc] = True
 
     while len(qq):
-        p = qq.pop()
+        p = qq.popleft()
         r,c,d = p  # row, col, depth (number of steps)
         if (r,c) == house:
-            print(f"found {d}")
+            # print(f"found {d}")
             return d   # we found it !
-        if (r,c) ==(1,1):
-            for rr in visited:
-                print(rr)
+        # if (r,c) ==(1,1):
+        #     for rr in visited:
+        #         print(rr)
         # -----------------------------
         # add neighbours to the queue
         for (r1,c1) in [(r-1,c),(r+1,c),(r,c-1),(r,c+1)]:
             if (r1<0 or r1>=Nrows or c1<0 or c1>=Ncols):
                 continue
             if (r1,c1) == house:
-                print(f"found {d+1}")
+                # print(f"found {d+1}")
                 return d+1   # we found it !
             if (visited[r1][c1] == True) or (mm[r1][c1] == 'T'):
                 continue
@@ -130,10 +131,11 @@ def find_min_well_dist(mm, houses, hset):
         return None
 
 # ----------------------------------------------------
-if __name__ == "__main__":
-    mm = init_map()
-    for r in mm: 
-        print(r)
+def run_grid(map_num):
+    mm = init_map(map_num)
+    print(" ")
+    # for r in mm: 
+    #     print(r)
 
     houses = house_locations(mm)  # list of houses
     hset = set(houses)            # set  of houses
@@ -147,25 +149,47 @@ if __name__ == "__main__":
         print("Didn't find a solution, Exiting ...") 
         sys.exit()
     print(f"found min sum(paths)={mybest[0]} at (row,col) = {mybest[1]}")
-    mm2 = init_map()
+    mm2 = init_map(map_num)
     r,c = mybest[1]
     mm2[r][c] = 'W'
     for row in mm2:
         print(row)
+    print("-"*40)
+
+# ----------------------------------------------------
+if __name__ == "__main__":
+    run_grid(0)
+    run_grid(1)
+    run_grid(2)
 
 # ----------------------------------------------------
 #    output:
-#        found min sum(paths)=25 at (row,col) = (1, 2)
+#
+#        houses=[(1, 1), (2, 1), (3, 2)]
+#        found min sum(paths)=4 at (row,col) = (3, 1)
+#        ['=', '=', '=', '=']
+#        ['=', 'H', 'T', '=']
+#        ['=', 'H', 'T', '=']
+#        ['=', 'W', 'H', '=']
+#        ----------------------------------------
+#
+#        houses=[(0, 2), (1, 5), (3, 1), (4, 5)]
+#        found min sum(paths)=13 at (row,col) = (1, 2)
 #        ['-', '-', 'H', '-', 'T', '-']
 #        ['-', '-', 'W', '-', '-', 'H']
 #        ['-', '-', 'T', '-', 'T', '-']
 #        ['-', 'H', 'T', '-', '-', '-']
 #        ['-', '-', 'T', '-', 'T', 'H']
 #        ['-', '-', '-', '-', '-', '-']
-# ----------------------------------------------------
-#        found min sum(paths)=6 at (row,col) = (2, 0)
-#        ['=', '=', '=', '=']
-#        ['=', 'H', 'T', '=']
-#        ['W', 'H', 'T', '=']
-#        ['=', '=', 'H', '=']
+#        ----------------------------------------
+#
+#        houses=[(2, 1), (2, 4)]
+#        found min sum(paths)=5 at (row,col) = (1, 1)
+#        ['-', '-', '-', '-', '-', '-']
+#        ['-', 'W', '-', '-', '-', '-']
+#        ['-', 'H', 'T', '-', 'H', '-']
+#        ['-', '-', '-', '-', '-', '-']
+#        ['-', '-', '-', '-', '-', '-']
+#        ['-', '-', '-', '-', '-', '-']
+#        ----------------------------------------
 # ----------------------------------------------------
