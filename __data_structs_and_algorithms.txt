@@ -1,12 +1,10 @@
-Passing technical IT interview
 
-Two types of interviews:
- Type 1. technical screening
- Type 2. conversation with decision maker
+Data Structures and Algorithms
+A summary to pass a technical interview
 
-In both cases:
+During the interview:
   - project excitement about the company and about the topics.
-Excitement, kindness, good karma mean more than technicalities.
+    Excitement, kindness, good karma mean more than technicalities.
   - Consider it as not an exam, but rather as a work situation 
     where you and your interviewer are solving real problem together
   - you may not know the answer - but you are evaluated how 
@@ -34,50 +32,62 @@ Then do lots of practice problems to learn how to use them.
 There are many sites with questions and answers, books, youtube videos, etc.
 # ---------------------------------------------------------
 Books:
- - Introduction to Algorithms, 3rd Edition (The MIT Press)
- - Cracking the Coding Interview: 189 Programming Questions 
+ - book: Introduction to Algorithms, 3rd Edition (The MIT Press)
+ - book: Cracking the Coding Interview: 189 Programming Questions 
    and Solutions 6th Edition - by Gayle Laakmann McDowell
- - Computer Algorithms - by Horowitz, Sahni, Rajsekaran
- - Data Structures and Algorithms - by Aho, Ullman, Hopcroft
- - Algorithm Design: Foundations, Analysis, and Internet Examples
+ - book: Computer Algorithms - by Horowitz, Sahni, Rajsekaran
+ - book: Data Structures and Algorithms - by Aho, Ullman, Hopcroft
+ - book: Algorithm Design: Foundations, Analysis, and Internet Examples
    by Goodrich, Tamassia
+ - book: Designing Data-Intensive Applications - by Martin Kleppmann
+
 Training websites:
   - leetcode
   - hackerrank
   - https://www.educative.io/
   - Interview Cake
-Youtube - multiple channels
+Youtube - multiple channels, for example: Gaurav Sen
 # ---------------------------------------------------------
 
 =======================================
 array - arr[i] - elements have same type
 
+=======================================
 list  - lst[i] - like array but:
   - elements may have different size and type
   - elements may be complext structures (lists, dicts, etc.)
   [1,2,3]
   [1,"dog",[2,3]]
 
+=======================================
 tuple - like a list, but immutable (can not be changed)
   (1,2,3)
   ((1,2),(3,4))
 
+=======================================
 string - "abcde fghij" - ordered set of characters
 
+=======================================
 sequence - any ordered set (list, tuples, string, ...)
 
+=======================================
 index - numbering elements in a sequence (usually starts with 0)
+        aa[i]
+        aa[i][j]
 
+=======================================
 slice - subset of elements of a sequence, for example:
     aa = "mama papa"
           012345678
     bb = aa[2:5] = "ma p"   (2 - included, 5 - not included)
+
 =======================================
 stack (FILO = First In Last Out)
     st = [1,2,3]
     st.append(4)     [1,2,3,4]
     aa = st.pop()    aa=4, st=[1,2,3]
 
+=======================================
 queue (FIFO = First In First Out)
     import collections
     qq = collections.deque()
@@ -87,15 +97,80 @@ queue (FIFO = First In First Out)
     bb = qq.popleft()  # 1
                        # qq == deque([2, 3, 4, 5])
 
+=======================================
 priority queue
-    (ticket, priority)
-  [(4,5),(3,5),(2,5)(1,5)]
-  [(4,5),(2,5)(1,5),(3,1)]
+  Suppose that we form a queue of tickets.
+  Each ticket is described by a tuple with two numbers:
+    (priority_num, ticket_num)
+    priority_num : 1..10, where 1=highest, 10=lowest priority
+    ticket_num   : sequentially growing number
+  As tickets enter the queue, we sort the queue
+    (by priority_num, ticket_num)
+    so that tickets with higher priority (lower priority_num)
+    will move forward. 
+    And within same priority, "earlier" tickets (with lower ticket_num)
+    will move forward.
+  Usually the queue was sorted before adding a new element.
+    So sorting simply means moving the element forward until if 
+    finds its place.
+  Usually priority queue is implemented using a min-heap structure
+    (see later in this document)
 
 =======================================
 set (unique elements)
 
+aa = set(range(1,10))  # {1, 2, 3, 4, 5, 6, 7, 8, 9}
+
+bb = set(range(5,15))  # {5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
+
+aa - bb    # {1, 2, 3, 4}
+
+bb - aa    # {10, 11, 12, 13, 14}
+
+aa | bb    # {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
+
+aa & bb    # {5, 6, 7, 8, 9}
+
+aa ^ bb    # {1, 2, 3, 4, 10, 11, 12, 13, 14}
+
+=======================================
 hash (hashmap, dict)
+   stores key-value pairs
+   famous for having constant-time for insert/delete/read
+
+aa = {"k1":"v1", "k2":55}  # {'k1': 'v1', 'k2': 55}
+
+aa['k3'] = 33              # {'k1': 'v1', 'k2': 55, 'k3': 33}
+
+if 'k2' in aa:
+    del aa['k2']           # {'k1': 'v1', 'k3': 33}
+
+if 'k2' in aa:
+    aa['k2'] += 1
+else:
+    aa['k2'] = 1
+
+Merging two dicts: 
+  starting python 3.5: z = (**d1, **d2)
+  starting python 3.9: z = d1 | d2
+
+Using defaultdict:
+
+from collections import defaultdict
+dd = defaultdict(list)
+dd['k1'].append(1)
+dd['k1'].append(2)
+dd['k1'].append(3)
+for kk in dd.keys():
+    print(f"{kk} => {dd[kk]}")   # k1 => [1, 2, 3]
+
+How hash works:
+  We make an array of buckets.
+  The key is mapped to one of the buckets using a simple hashing function
+  the tuple (key,val) is placed in this bucket.
+  Reading/deleting by key - same hashing function is used to loate the item
+
+   # ------------------------------
    Example of hashing function:
    # ------------------------------
    hash = 0
@@ -103,6 +178,11 @@ hash (hashmap, dict)
      hash = hash*33 + ord(char)
    idx = hash / num_buckets
    # ------------------------------
+
+=======================================
+Consistent hashing  (ring hash)
+   
+   XXXXXXXXX
 
 =======================================
 Bloom filter

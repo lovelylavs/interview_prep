@@ -6,8 +6,26 @@
 #   where each parent is >= (or <= for min-heap) than values of children
 # Binary heaps are a common way of implementing priority queues. 
 # Binary heap was introduced by J. W. J. Williams in 1964, as a data structure for heapsort.
-#
-# ----------------------------------------------------
+# --------------------------------------------------------------
+#   priority queue
+#     Suppose that we form a queue of tickets.
+#     Each ticket is described by a tuple with two numbers:
+#       (priority_num, ticket_num)
+#       priority_num : 1..10, where 1=highest, 10=lowest priority
+#       ticket_num   : sequentially growing number
+#     As tickets enter the queue, we sort the queue
+#       (by priority_num, ticket_num)
+#       so that tickets with higher priority (lower priority_num)
+#       will move forward. 
+#       And within same priority, "earlier" tickets (with lower ticket_num)
+#       will move forward.
+#     Usually the queue was sorted before adding a new element.
+#       So sorting simply means moving the element forward until if 
+#       finds its place.
+#     Usually priority queue is implemented using a min-heap structure
+#       (see later in this document)
+# --------------------------------------------------------------
+# Heap is usually stored in an array
 # If we have an array of numbers, then:
 # idx = 0 - root (top element)
 # idx - 1,2 - next layer
@@ -19,15 +37,14 @@
 #
 # Time complexity:
 #     building heap - O(N)
-#     push (at bottom) and adjust - O(lg(N))
-#     pop (from top) and adjust   - O(lg(N))
+#     push (add at bottom and adjust) - O(lg(N))
+#     pop (take from top and adjust)  - O(lg(N))
 #     heap sort - O(N*log(N))
 #
 # ----------------------------------------------------
-# If we have access to module "heapq",
-# then we can use functions:
+# import heapq 
 #    heapify(mylist) - convert mylist in place into min-heap
-#      (max-heap - just invert all numbers)
+#                        (max-heap - just invert all numbers)
 #    heappush(mylist, val) - adds element at the bottom and adjusts the heap
 #    val = heappop(mylist) - pops top element, and adjusts the heap
 # Example of usage:
@@ -40,9 +57,8 @@
 #   heappop(h)  # (3, 'create tests')
 #
 # ----------------------------------------------------
-# Note - if we want a priority queue, we can use queue.PriorityQueue
-# 
-#   from queue import PriorityQueue
+# import queue
+# from queue import PriorityQueue
 #   q = PriorityQueue()
 #   q.put((5, 'write code'))
 #   q.put((7, 'release product'))
