@@ -51,7 +51,7 @@
 # Track all the values and positions we have explored. 
 # Complexity : O(N) for time and space
 # --------------------------------------------------------------
-import collections
+
 def minJumps(arr):
     # -------------------------
     # dictionary giving list of positions for each value
